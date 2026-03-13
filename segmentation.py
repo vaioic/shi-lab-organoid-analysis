@@ -121,7 +121,7 @@ def remove_small_holes_in_objects(labels, max_size=10):
         
     return new_labels
 
-def segment(image, threshold=0.98, h_factor=0.4, circularity_bias=0.5, separation_factor=0.8, gauss_sigma=1.0):
+def segment(image, threshold=0.98, h_factor=0.4, circularity_bias=0.5, separation_factor=0.8, gauss_sigma=1.0, normalization_factor=0.01):
     """
     Segment organoids in brightfield images. This algorithm attempts to identify dark objects against a light background, as well as attempting to separate touching objects using the watershed algorithm.
 
@@ -153,9 +153,11 @@ def segment(image, threshold=0.98, h_factor=0.4, circularity_bias=0.5, separatio
     """
 
     # Pre-process the image to clean up noise
+    # normalized = skimage.morphology.black_tophat(image, skimage.morphology.disk(90))
+
     denoised = skimage.filters.median(image, skimage.morphology.disk(10))
 
-    denoised = (denoised - (1.03 * np.min(denoised)))/((0.93 * np.max(denoised)) - (1.03 * np.min(denoised)))
+    denoised = (denoised - ((1.0 + normalization_factor) * np.min(denoised)))/(((1.0 - normalization_factor) * np.max(denoised)) - ((1.0 + normalization_factor) * np.min(denoised)))
 
     denoised[denoised > 1.0] = 1.0
     denoised[denoised < 0.0] = 0.0
@@ -218,10 +220,11 @@ def segment(image, threshold=0.98, h_factor=0.4, circularity_bias=0.5, separatio
     markers = skimage.morphology.label(final_markers_mask)
     labels = skimage.segmentation.watershed(hybrid, markers, mask=mask)
 
+    # Clean up any objects which intersect with the image border
     labels = skimage.segmentation.clear_border(labels)
 
+    # 
     labels = remove_small_holes_in_objects(labels, max_size=50000)
-
 
     object_coords = np.array(kept_coords)
 
