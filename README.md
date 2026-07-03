@@ -1,4 +1,4 @@
-# OIC-267
+# Organoid analysis (Shi Lab)
 
 The goal of this project is to measure properties of neuronal organoids, imaged using a brightfield dissecting microscope. The organoids in these images appear as dark circular objects against a bright (white) background.
 
