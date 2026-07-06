@@ -4,14 +4,14 @@ SPACING_MU = (1 / 600) * 1e3  # 1 mm = 600 pixels
 
 analyze_images.process_timeseries_images(
     "../data/Organoid size of batch4",
-    "../processed/20260703/Organoid size of batch4",
+    "../processed/20260706/Organoid size of batch4",
     threshold=0.9,
     spacing=SPACING_MU,
 )
 
 analyze_images.process_timeseries_images(
     "../data/organoid size of new WT",
-    "../processed/20260703/organoid size of new WT",
+    "../processed/20260706/organoid size of new WT",
     threshold=0.9,
     spacing=SPACING_MU,
 )
