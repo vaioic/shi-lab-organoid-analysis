@@ -93,7 +93,7 @@ The data measured from each organoid are:
 * Eccentricity (0 = perfect circle, 1 = straight line)
 
 <figure>
-  <img src="example_output.jpg" alt="Microscopy image showing four dark, spherical cellular organoids on a white background, with three of them outlined in pink and measured across their diameters with dashed lines." width="350">
+  <img src=".github/assets/example_output.jpg" alt="Microscopy image showing four dark, spherical cellular organoids on a white background, with three of them outlined in pink and measured across their diameters with dashed lines." width="350">
   <figcaption align="center"><i>Example output showing segmentation outlines</i></figcaption>
 </figure>
 
